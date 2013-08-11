@@ -44,5 +44,42 @@
             Assert.AreEqual("Description", result[1]);
             Assert.AreEqual("Price", result[2]);
         }
+
+        [TestMethod]
+        public void InsertRow()
+        {
+            Engine engine = new Engine();
+            Database db = engine.CreateDatabase("MyCompany");
+            Table table = db.CreateTable("People");
+
+            table.AddColumn("Name");
+            table.AddColumn("Age");
+
+            var row = table.Insert("Adam", 800);
+
+            Assert.IsNotNull(row);
+            Assert.AreEqual("Adam", row.GetCell(0));
+            Assert.AreEqual(800, row.GetCell(1));
+        }
+
+        [TestMethod]
+        public void InsertRowAndGetRows()
+        {
+            Engine engine = new Engine();
+            Database db = engine.CreateDatabase("MyCompany");
+            Table table = db.CreateTable("People");
+
+            table.AddColumn("Name");
+            table.AddColumn("Age");
+
+            table.Insert("Adam", 800);
+
+            var rows = table.GetRows();
+
+            Assert.IsNotNull(rows);
+            Assert.AreEqual(1, rows.Count());
+            Assert.AreEqual("Adam", rows.First().GetCell(0));
+            Assert.AreEqual(800, rows.First().GetCell(1));
+        }
     }
 }
