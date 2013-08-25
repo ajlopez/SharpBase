@@ -9,7 +9,6 @@
     {
         private string name;
         private IList<Column> columns = new List<Column>();
-        private IList<string> columnnames = new List<string>();
         private IList<Row> rows = new List<Row>();
 
         public Table(string name)
@@ -22,14 +21,13 @@
         public Column AddColumn(string name)
         {
             Column column = new Column(name);
-            this.columnnames.Add(name);
             this.columns.Add(column);
             return column;
         }
 
         public IEnumerable<string> GetColumnNames()
         {
-            return this.columnnames;
+            return this.columns.Select(c => c.Name);
         }
 
         public IEnumerable<Column> GetColumns()
