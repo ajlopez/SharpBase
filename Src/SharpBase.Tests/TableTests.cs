@@ -82,6 +82,25 @@
         }
 
         [TestMethod]
+        public void InsertRowWithAutoincrement()
+        {
+            Engine engine = new Engine();
+            Database db = engine.CreateDatabase("MyCompany");
+            Table table = db.CreateTable("People");
+
+            table.AddColumn("Id").Autonumeric();
+            table.AddColumn("Name");
+            table.AddColumn("Age");
+
+            var row = table.Insert(null, "Adam", 800);
+
+            Assert.IsNotNull(row);
+            Assert.AreEqual(1, row.GetCell(0));
+            Assert.AreEqual("Adam", row.GetCell(1));
+            Assert.AreEqual(800, row.GetCell(2));
+        }
+
+        [TestMethod]
         public void InsertRowAndGetRows()
         {
             Engine engine = new Engine();

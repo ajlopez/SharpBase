@@ -37,6 +37,10 @@
 
         public Row Insert(params object[] values)
         {
+            for (int k = 0; k < values.Length; k++)
+                if (this.columns[k].IsAutonumeric)
+                    values[k] = this.columns[k].GetNextId();
+
             var row = new Row(values);
             this.rows.Add(row);
             return row;
