@@ -26,6 +26,25 @@
         }
 
         [TestMethod]
+        public void AddColumnAndGetColumns()
+        {
+            Engine engine = new Engine();
+            Database db = engine.CreateDatabase("Warehouse");
+            Table table = db.CreateTable("Products");
+
+            var column = table.AddColumn("Name");
+
+            Assert.IsNotNull(column);
+            Assert.AreEqual("Name", column.Name);
+
+            var result = table.GetColumns();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual("Name", result.First().Name);
+        }
+
+        [TestMethod]
         public void AddColumnsAndGetColumnNames()
         {
             Engine engine = new Engine();

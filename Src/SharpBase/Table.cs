@@ -8,6 +8,7 @@
     public class Table
     {
         private string name;
+        private IList<Column> columns = new List<Column>();
         private IList<string> columnnames = new List<string>();
         private IList<Row> rows = new List<Row>();
 
@@ -18,14 +19,22 @@
 
         public string Name { get { return this.name; } }
 
-        public void AddColumn(string name)
+        public Column AddColumn(string name)
         {
+            Column column = new Column(name);
             this.columnnames.Add(name);
+            this.columns.Add(column);
+            return column;
         }
 
         public IEnumerable<string> GetColumnNames()
         {
             return this.columnnames;
+        }
+
+        public IEnumerable<Column> GetColumns()
+        {
+            return this.columns;
         }
 
         public Row Insert(params object[] values)
